@@ -13,8 +13,7 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemSecondaryAction,
-  IconButton,
-  Grid
+  IconButton
 } from "@material-ui/core";
 
 const styles = theme => ({
@@ -54,9 +53,9 @@ const MovieNight = props => {
         Your Movie Night
       </Typography>
       <List className={classes.list}>
-        {movies.map(movie => {
+        {movies.map((movie, index) => {
           return (
-            <ListItem divider="true">
+            <ListItem key={index} divider={true}>
               <ListItemAvatar>
                 <Avatar />
               </ListItemAvatar>

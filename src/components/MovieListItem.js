@@ -32,9 +32,9 @@ class MovieListItem extends Component {
     return (
       <Fragment>
         <Grid container spacing={24} alignContent="space-between">
-          {movies.map(movie => {
+          {movies.map((movie, index) => {
             return (
-              <Grid item xs={12} sm={6}>
+              <Grid key={index} item xs={12} sm={6}>
                 <Card className={classes.card}>
                   <div>
                     <CardMedia
@@ -51,7 +51,7 @@ class MovieListItem extends Component {
                       <Typography variant="body1" align="center">
                         {movie.genre}
                       </Typography>
-                      <Typography variant="body2" align="center">
+                      <Typography variant="body1" align="center">
                         {movie.rating}
                       </Typography>
                     </CardContent>

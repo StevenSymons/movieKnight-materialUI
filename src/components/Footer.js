@@ -21,8 +21,8 @@ const Footer = props => {
       <Typography variant="h6" color="inherit">
         The footer of awesomeness.
       </Typography>
-      <Typography variant="body2" color="inherit">
-        Created by Steven Symons with love. <i class="fas fa-heart" />{" "}
+      <Typography variant="body1" color="inherit">
+        Created by Steven Symons with love. <i className="fas fa-heart" />{" "}
       </Typography>
     </div>
   );
