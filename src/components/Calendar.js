@@ -1,5 +1,4 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
 import { ViewState } from "@devexpress/dx-react-scheduler";
 import {
   Scheduler,
@@ -9,10 +8,11 @@ import {
   DateNavigator
 } from "@devexpress/dx-react-scheduler-material-ui";
 import {
+  Paper,
   MuiThemeProvider,
   createMuiTheme,
   withStyles
-} from "@material-ui/core/styles";
+} from "@material-ui/core";
 import { blue } from "@material-ui/core/colors";
 import { appointments } from "../data";
 

@@ -1,11 +1,13 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
+import {
+  withStyles,
+  AppBar,
+  Typography,
+  Button,
+  IconButton,
+  Badge
+} from "@material-ui/core";
 import ToolBar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 
 const styles = theme => ({

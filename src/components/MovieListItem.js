@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import { movies } from "../moviesData";
+import {
+  withStyles,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Grid,
+  Button
+} from "@material-ui/core";
 
 const styles = theme => ({
   card: {
@@ -28,45 +29,53 @@ const styles = theme => ({
 
 class MovieListItem extends Component {
   render() {
-    const { classes } = this.props;
+    const {
+      classes,
+      movieTitle,
+      image,
+      genre_ids,
+      genres,
+      rating,
+      movie,
+      addMovie
+    } = this.props;
     return (
       <Fragment>
-        <Grid container spacing={24} alignContent="space-between">
-          {movies.map((movie, index) => {
-            return (
-              <Grid key={index} item xs={12} sm={6}>
-                <Card className={classes.card}>
-                  <div>
-                    <CardMedia
-                      component="img"
-                      image={movie.image}
-                      className={classes.media}
-                    />
-                  </div>
-                  <div className={classes.contentLayout}>
-                    <CardContent>
-                      <Typography variant="h6" align="center">
-                        {movie.movieTitle}
-                      </Typography>
-                      <Typography variant="body1" align="center">
-                        {movie.genre}
-                      </Typography>
-                      <Typography variant="body1" align="center">
-                        {movie.rating}
-                      </Typography>
-                    </CardContent>
-                    <Button
-                      className={classes.button}
-                      color="secondary"
-                      size="large"
-                    >
-                      +
-                    </Button>
-                  </div>
-                </Card>
-              </Grid>
-            );
-          })}
+        <Grid item xs={12} sm={6}>
+          <Card className={classes.card}>
+            <div>
+              <CardMedia
+                component="img"
+                image={"http://image.tmdb.org/t/p/w185" + image}
+                className={classes.media}
+              />
+            </div>
+            <div className={classes.contentLayout}>
+              <CardContent>
+                <Typography variant="h6" align="center">
+                  {movieTitle}
+                </Typography>
+                <Typography variant="body1" align="center">
+                  {genre_ids[0]
+                    ? genres.filter(genre => {
+                        return genre.id === genre_ids[0];
+                      })[0].name
+                    : "No genre available"}
+                </Typography>
+                <Typography variant="h5" align="center">
+                  {rating}
+                </Typography>
+              </CardContent>
+              <Button
+                className={classes.button}
+                color="secondary"
+                size="large"
+                onClick={() => addMovie(movie)}
+              >
+                +
+              </Button>
+            </div>
+          </Card>
         </Grid>
       </Fragment>
     );
