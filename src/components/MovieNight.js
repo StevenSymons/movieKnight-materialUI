@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import MovieNightItem from "./MovieNightItem";
-// import { movies } from "../moviesData";
 import {
   Typography,
   TextField,
@@ -32,6 +31,12 @@ const styles = theme => ({
   list: {
     maxWidth: 700,
     margin: "auto"
+  },
+  buttonGroup: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    margin: theme.spacing.unit * 2
   }
 });
 
@@ -44,7 +49,8 @@ class MovieNight extends Component {
       onChangeMovieNight,
       onSubmitMovieNight,
       movieList,
-      removeMovie
+      removeMovie,
+      deleteMovieNight
     } = this.props;
     return (
       <Fragment>
@@ -86,10 +92,19 @@ class MovieNight extends Component {
                     id={movie.id}
                     movieTitle={movie.title}
                     removeMovie={removeMovie}
+                    image={movie.poster_path}
                   />
                 );
               })}
             </List>
+            <div className={classes.buttonGroup}>
+              <Button color="secondary" size="small" onClick={deleteMovieNight}>
+                Delete Movie Night
+              </Button>
+              <Button variant="contained" color="secondary" size="small">
+                Checkout calendar!
+              </Button>
+            </div>
           </Paper>
         )}
       </Fragment>

@@ -13,7 +13,12 @@ const styles = theme => ({
   card: {
     display: "flex",
     position: "relative",
-    height: 278
+    height: 278,
+    cursor: "pointer",
+    border: "3px solid transparent",
+    "&:hover": {
+      border: "3px solid #ff4081"
+    }
   },
   media: { width: 185 },
   button: {
@@ -46,7 +51,11 @@ class MovieListItem extends Component {
             <div>
               <CardMedia
                 component="img"
-                image={"http://image.tmdb.org/t/p/w185" + image}
+                image={
+                  image
+                    ? "http://image.tmdb.org/t/p/w185" + image
+                    : "https://via.placeholder.com/185x278.jpg?text=No%20Image"
+                }
                 className={classes.media}
               />
             </div>

@@ -1,18 +1,21 @@
 import React, { Component, Fragment } from "react";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { CssBaseline } from "@material-ui/core";
 import Header from "./Header";
 import Footer from "./Footer";
 import MovieList from "./MovieList";
 import Navigation from "./Navigation";
 import MovieNight from "./MovieNight";
 import Calendar from "./Calendar";
+import GeneralMessage from "./GeneralMessage";
 
 class App extends Component {
   state = {
     value: 0,
     hasMovieNight: false,
     movieNightName: "",
-    movieList: []
+    movieList: [],
+    open: false,
+    snackBarInfo: ""
   };
 
   onChangeMovieNight = e => {
@@ -32,14 +35,19 @@ class App extends Component {
     this.setState({ value });
   };
 
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   addMovie = movie => {
     this.setState({
-      movieList: [...this.state.movieList, movie]
+      movieList: [...this.state.movieList, movie],
+      open: true,
+      snackBarInfo: `Added ${movie.title} to your movie night!`
     });
   };
 
   removeMovie = id => {
-    console.log("remove is working!", id);
     const filteredMovieList = this.state.movieList.filter(movie => {
       return movie.id !== id;
     });
@@ -48,8 +56,23 @@ class App extends Component {
     });
   };
 
+  deleteMovieNight = () => {
+    this.setState({
+      movieNightName: "",
+      hasMovieNight: false,
+      movieList: []
+    });
+  };
+
   render() {
-    const { value, hasMovieNight, movieNightName, movieList } = this.state;
+    const {
+      value,
+      hasMovieNight,
+      movieNightName,
+      movieList,
+      open,
+      snackBarInfo
+    } = this.state;
     return (
       <Fragment>
         <CssBaseline />
@@ -64,10 +87,16 @@ class App extends Component {
             onSubmitMovieNight={this.onSubmitMovieNight}
             movieList={movieList}
             removeMovie={this.removeMovie}
+            deleteMovieNight={this.deleteMovieNight}
           />
         )}
         {value === 2 && <Calendar />}
         <Footer />
+        <GeneralMessage
+          open={open}
+          snackBarInfo={snackBarInfo}
+          handleClose={this.handleClose}
+        />
       </Fragment>
     );
   }

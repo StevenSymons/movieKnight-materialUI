@@ -145,6 +145,7 @@ class MovieList extends Component {
           {movies.map(movie => {
             return (
               <MovieListItem
+                id={movie.id}
                 movie={movie}
                 key={movie.id}
                 movieTitle={movie.title}

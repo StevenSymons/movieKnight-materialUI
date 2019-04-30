@@ -10,11 +10,11 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 
 const MovieNightItem = props => {
-  const { id, movieTitle, removeMovie } = props;
+  const { id, movieTitle, removeMovie, image } = props;
   return (
     <ListItem divider={true}>
       <ListItemAvatar>
-        <Avatar />
+        <Avatar src={`http://image.tmdb.org/t/p/w45${image}`} />
       </ListItemAvatar>
       <ListItemText primary={movieTitle} />
       <ListItemSecondaryAction>
