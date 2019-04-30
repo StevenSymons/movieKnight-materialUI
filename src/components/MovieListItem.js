@@ -42,12 +42,16 @@ class MovieListItem extends Component {
       genres,
       rating,
       movie,
-      addMovie
+      addMovie,
+      openMovieDetails
     } = this.props;
     return (
       <Fragment>
         <Grid item xs={12} sm={6}>
-          <Card className={classes.card}>
+          <Card
+            className={classes.card}
+            onClick={() => openMovieDetails(movie)}
+          >
             <div>
               <CardMedia
                 component="img"

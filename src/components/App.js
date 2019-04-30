@@ -7,6 +7,7 @@ import Navigation from "./Navigation";
 import MovieNight from "./MovieNight";
 import Calendar from "./Calendar";
 import GeneralMessage from "./GeneralMessage";
+import SignIn from "./SignIn";
 
 class App extends Component {
   state = {
@@ -64,6 +65,12 @@ class App extends Component {
     });
   };
 
+  goToSignIn = value => {
+    this.setState({
+      value: 4
+    });
+  };
+
   render() {
     const {
       value,
@@ -76,7 +83,7 @@ class App extends Component {
     return (
       <Fragment>
         <CssBaseline />
-        <Header />
+        <Header goToSignIn={this.goToSignIn} />
         <Navigation value={value} handleChange={this.handleChange} />
         {value === 0 && <MovieList addMovie={this.addMovie} />}
         {value === 1 && (
@@ -91,6 +98,7 @@ class App extends Component {
           />
         )}
         {value === 2 && <Calendar />}
+        {value === 4 && <SignIn />}
         <Footer />
         <GeneralMessage
           open={open}

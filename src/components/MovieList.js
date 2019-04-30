@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withStyles, Grid } from "@material-ui/core";
 import MovieListItem from "./MovieListItem";
 import Pagination from "material-ui-flat-pagination";
+import MovieDetails from "./MovieDetails";
 
 import Filter from "./Filter";
 
@@ -28,7 +29,9 @@ class MovieList extends Component {
     genreFilter: "",
     genreName: "",
     sortBy: "popularity",
-    searchFilter: ""
+    searchFilter: "",
+    open: false,
+    movie: {}
   };
 
   handleClick = (offset, page) => {
@@ -53,6 +56,20 @@ class MovieList extends Component {
   onSubmitSearch = searchFilter => {
     this.setState({
       searchFilter
+    });
+  };
+
+  openMovieDetails = movie => {
+    console.log(movie);
+    this.setState({
+      open: true,
+      movie
+    });
+  };
+
+  closeMovieDetails = () => {
+    this.setState({
+      open: false
     });
   };
 
@@ -129,7 +146,15 @@ class MovieList extends Component {
 
   render() {
     const { classes, addMovie } = this.props;
-    const { totalPages, movies, genres, genreName, sortBy } = this.state;
+    const {
+      totalPages,
+      movies,
+      genres,
+      genreName,
+      sortBy,
+      open,
+      movie
+    } = this.state;
     return (
       <div className={classes.root}>
         <Filter
@@ -154,6 +179,7 @@ class MovieList extends Component {
                 genres={genres}
                 rating={movie.vote_average}
                 addMovie={addMovie}
+                openMovieDetails={this.openMovieDetails}
               />
             );
           })}
@@ -165,6 +191,12 @@ class MovieList extends Component {
           size="large"
           classes={{ root: classes.pagination }}
           onClick={(e, offset, page) => this.handleClick(offset, page)}
+        />
+        <MovieDetails
+          open={open}
+          closeMovieDetails={this.closeMovieDetails}
+          movie={movie}
+          addMovie={addMovie}
         />
       </div>
     );

@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 const Header = props => {
-  const { classes } = props;
+  const { classes, goToSignIn } = props;
   return (
     <AppBar position="static" color="primary" className={classes.appbar}>
       <ToolBar>
@@ -37,7 +37,9 @@ const Header = props => {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <Button color="inherit">Login</Button>
+        <Button color="inherit" onClick={goToSignIn}>
+          Login
+        </Button>
       </ToolBar>
     </AppBar>
   );
