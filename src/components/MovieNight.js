@@ -2,13 +2,13 @@ import React, { Component, Fragment } from "react";
 import MovieNightItem from "./MovieNightItem";
 import {
   Typography,
-  TextField,
-  FormControl,
   List,
+  ListSubheader,
   withStyles,
   Paper,
   Button
 } from "@material-ui/core";
+import CreateMovieNight from "./CreateMovieNight";
 
 const styles = theme => ({
   paper: {
@@ -20,23 +20,15 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 2,
     paddingTop: theme.spacing.unit * 3
   },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
-  },
-  formControl: {
-    margin: "auto"
-  },
   list: {
     maxWidth: 700,
     margin: "auto"
   },
   buttonGroup: {
+    maxWidth: 700,
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    margin: theme.spacing.unit * 2
+    margin: "16px auto",
+    justifyContent: "space-between"
   }
 });
 
@@ -50,42 +42,37 @@ class MovieNight extends Component {
       onSubmitMovieNight,
       movieList,
       removeMovie,
-      deleteMovieNight
+      deleteMovieNight,
+      handleDateChange,
+      date,
+      currentTimeStamp,
+      handleTimeChange,
+      times
     } = this.props;
     return (
       <Fragment>
         {!hasMovieNight ? (
-          <Paper className={classes.paper}>
-            <form className={classes.form} onSubmit={onSubmitMovieNight}>
-              <Typography align="center" variant="h5">
-                Create a new Movie Night
-              </Typography>
-              <FormControl className={classes.formControl}>
-                <TextField
-                  id="movieNightTitle"
-                  label="Movie Night Title"
-                  type="text"
-                  onChange={onChangeMovieNight}
-                />
-                <Button
-                  variant="text"
-                  color="primary"
-                  size="medium"
-                  type="submit"
-                >
-                  Create
-                </Button>
-              </FormControl>
-            </form>
-          </Paper>
+          <CreateMovieNight
+            onChangeMovieNight={onChangeMovieNight}
+            onSubmitMovieNight={onSubmitMovieNight}
+            handleDateChange={handleDateChange}
+            date={date}
+            currentTimeStamp={currentTimeStamp}
+          />
         ) : (
           <Paper className={classes.paper}>
             <Typography variant="h6" align="center">
               {movieNightName}
             </Typography>
-            <List className={classes.list}>
+            <List
+              className={classes.list}
+              subheader={
+                <ListSubheader component="div">
+                  Date: {date.c.day}/{date.c.month}/{date.c.year}
+                </ListSubheader>
+              }
+            >
               {movieList.map(movie => {
-                console.log(movie);
                 return (
                   <MovieNightItem
                     key={movie.id}
@@ -93,6 +80,8 @@ class MovieNight extends Component {
                     movieTitle={movie.title}
                     removeMovie={removeMovie}
                     image={movie.poster_path}
+                    handleTimeChange={handleTimeChange}
+                    times={times}
                   />
                 );
               })}

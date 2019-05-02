@@ -12,7 +12,7 @@ const Navigation = props => {
   const { value, handleChange } = props;
   const { classes } = props;
   return (
-    <AppBar position="static" color="primary" className={classes.appbar}>
+    <AppBar position="sticky" color="primary" className={classes.appbar}>
       <Tabs centered value={value} onChange={handleChange}>
         <Tab label="Search Movies" />
         <Tab label="Movie Night" />

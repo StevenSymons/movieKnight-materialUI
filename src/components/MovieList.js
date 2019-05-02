@@ -3,6 +3,7 @@ import { withStyles, Grid } from "@material-ui/core";
 import MovieListItem from "./MovieListItem";
 import Pagination from "material-ui-flat-pagination";
 import MovieDetails from "./MovieDetails";
+import MovieTrailer from "./MovieTrailer";
 
 import Filter from "./Filter";
 
@@ -31,11 +32,14 @@ class MovieList extends Component {
     sortBy: "popularity",
     searchFilter: "",
     open: false,
+    openTrailer: false,
+    trailerKey: "",
     movie: {}
   };
 
   handleClick = (offset, page) => {
     this.setState({ offset, page });
+    window.scrollTo(0, 0);
   };
 
   onGenreChange = e => {
@@ -70,6 +74,27 @@ class MovieList extends Component {
   closeMovieDetails = () => {
     this.setState({
       open: false
+    });
+  };
+
+  openMovieTrailer = id => {
+    fetch(
+      `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${
+        process.env.REACT_APP_API_KEY
+      }&language=en-US`
+    )
+      .then(res => res.json())
+      .then(data => {
+        const trailerKey = data.results.find(video => {
+          return video.type === "Trailer";
+        }).key;
+        this.setState({ trailerKey, openTrailer: true });
+      });
+  };
+
+  closeMovieTrailer = () => {
+    this.setState({
+      openTrailer: false
     });
   };
 
@@ -153,6 +178,8 @@ class MovieList extends Component {
       genreName,
       sortBy,
       open,
+      openTrailer,
+      trailerKey,
       movie
     } = this.state;
     return (
@@ -180,6 +207,7 @@ class MovieList extends Component {
                 rating={movie.vote_average}
                 addMovie={addMovie}
                 openMovieDetails={this.openMovieDetails}
+                openMovieTrailer={this.openMovieTrailer}
               />
             );
           })}
@@ -197,6 +225,11 @@ class MovieList extends Component {
           closeMovieDetails={this.closeMovieDetails}
           movie={movie}
           addMovie={addMovie}
+        />
+        <MovieTrailer
+          open={openTrailer}
+          closeMovieTrailer={this.closeMovieTrailer}
+          trailerKey={trailerKey}
         />
       </div>
     );

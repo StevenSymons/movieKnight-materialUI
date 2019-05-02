@@ -6,6 +6,7 @@ import {
   Table,
   TableCell,
   TableRow,
+  TableBody,
   Button
 } from "@material-ui/core";
 
@@ -34,7 +35,8 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 2
   },
   poster: {
-    borderRadius: 4
+    borderRadius: 4,
+    maxHeight: "100%"
   },
   button: {
     marginTop: "auto"
@@ -57,22 +59,24 @@ const MovieDetails = props => {
           </Typography>
           <hr />
           <Table>
-            <TableRow>
-              <TableCell>Title</TableCell>
-              <TableCell>{movie.title}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Release Date</TableCell>
-              <TableCell>{movie.release_date}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Average Rating</TableCell>
-              <TableCell>{movie.vote_average}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Overview</TableCell>
-              <TableCell>{movie.overview}</TableCell>
-            </TableRow>
+            <TableBody>
+              <TableRow>
+                <TableCell>Title</TableCell>
+                <TableCell>{movie.title}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Release Date</TableCell>
+                <TableCell>{movie.release_date}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Average Rating</TableCell>
+                <TableCell>{movie.vote_average}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Overview</TableCell>
+                <TableCell>{movie.overview}</TableCell>
+              </TableRow>
+            </TableBody>
           </Table>
           <Button
             className={classes.button}

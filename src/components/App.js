@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { CssBaseline } from "@material-ui/core";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -8,6 +8,8 @@ import MovieNight from "./MovieNight";
 import Calendar from "./Calendar";
 import GeneralMessage from "./GeneralMessage";
 import SignIn from "./SignIn";
+import { MuiPickersUtilsProvider } from "material-ui-pickers";
+import LuxonUtils from "@date-io/luxon";
 
 class App extends Component {
   state = {
@@ -16,7 +18,10 @@ class App extends Component {
     movieNightName: "",
     movieList: [],
     open: false,
-    snackBarInfo: ""
+    snackBarInfo: "",
+    currentTimeStamp: Date.now(),
+    date: {},
+    times: []
   };
 
   onChangeMovieNight = e => {
@@ -71,6 +76,21 @@ class App extends Component {
     });
   };
 
+  handleDateChange = date => {
+    console.log(date);
+    this.setState({
+      date,
+      currentTimeStamp: date.ts
+    });
+  };
+
+  handleTimeChange = (date, id) => {
+    console.log(date, id);
+    this.setState({
+      times: [...this.state.times, { [id]: date }]
+    });
+  };
+
   render() {
     const {
       value,
@@ -78,10 +98,14 @@ class App extends Component {
       movieNightName,
       movieList,
       open,
-      snackBarInfo
+      snackBarInfo,
+      date,
+      currentTimeStamp,
+      times
     } = this.state;
+    console.log(times);
     return (
-      <Fragment>
+      <MuiPickersUtilsProvider utils={LuxonUtils}>
         <CssBaseline />
         <Header goToSignIn={this.goToSignIn} />
         <Navigation value={value} handleChange={this.handleChange} />
@@ -95,6 +119,11 @@ class App extends Component {
             movieList={movieList}
             removeMovie={this.removeMovie}
             deleteMovieNight={this.deleteMovieNight}
+            handleDateChange={this.handleDateChange}
+            date={date}
+            currentTimeStamp={currentTimeStamp}
+            handleTimeChange={this.handleTimeChange}
+            times={times}
           />
         )}
         {value === 2 && <Calendar />}
@@ -105,7 +134,7 @@ class App extends Component {
           snackBarInfo={snackBarInfo}
           handleClose={this.handleClose}
         />
-      </Fragment>
+      </MuiPickersUtilsProvider>
     );
   }
 }
